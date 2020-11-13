@@ -192,9 +192,12 @@ export function isPhoneNumber(phoneNumber: any): boolean {
  * @return Whether the string is a valid ISO date string.
  */
 export function isISODateString(dateString: any): boolean {
+  // Ensure that date string does not exceed ISO date string length.
+  const formattedDateString = dateString.slice(0, 23) + dateString.slice(-1);
+
   try {
-    return isNonEmptyString(dateString) &&
-        (new Date(dateString).toISOString() === dateString);
+    return isNonEmptyString(formattedDateString) &&
+      (new Date(formattedDateString).toISOString() === formattedDateString);
   } catch (e) {
     return false;
   }
